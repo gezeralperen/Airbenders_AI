@@ -95,7 +95,7 @@ class PipeLine():
     def predict(self, data, have_y=False):
         if not have_y:
             zeros = np.zeros((data.shape[0],1))
-            np.hstack((data, zeros))
+            data = np.hstack((data, zeros))
         x,y = self.preprocess(data)
         return self.model.predict(x)
 
@@ -123,5 +123,5 @@ pipe = PipeLine.load('pipeline.object')
 y_predicted = pipe.predict(data[1:,:-1])
 y_real = data[:,-1:]
 
-compare = np.hstack((y_real,y_predicted))
+compare = np.hstack((y_real[1:,:],y_predicted))
 breakpoint()
